@@ -33,4 +33,9 @@ public class HomeController {
 		return "home";
 	}
 
+	@GetMapping("/ajaxHome")
+	public String ajaxHome() {
+		return "ajaxHome";
+	}
+
 }
