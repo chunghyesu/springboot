@@ -19,20 +19,20 @@
 			});
 		});
 
-		$("#readBtn").on("click", function () {
+		$("#getBtn").on("click", function () {
 			var boardNo = $("#boardNo");
 			var boardNoVal = boardNo.val();
 
 			console.log(boardNoVal);
 
-			$.get("/boards/" + boardNoVal, function(data) {
+			$.get("/boards/" + boardNoVal, function (data) {
 				console.log(data);
 
 				alert(JSON.stringify(data));
 			});
 		});
 
-		$("#registerBtn").on("click", function () {
+		$("#postBtn").on("click", function () {
 			var title = $("#title");
 			var content = $("#content");
 			var writer = $("#writer");
@@ -52,12 +52,12 @@
 				url: "/boards",
 				data: JSON.stringify(boardObject),
 				contentType: "application/json; charset=UTF-8",
-				success: function(result) {
+				success: function (result) {
 					console.log("result: " + result);
 
 					alert(result);
 				},
-				error: function(request, status, error) {
+				error: function (request, status, error) {
 					alert("code:" + request.status + "\nmessage:" + request.responseText + "\nerror:" + error);
 				}
 			});
@@ -72,14 +72,14 @@
 			$.ajax({
 				type: "DELETE",
 				url: "/boards/" + boardNoVal,
-				success: function(result) {
+				success: function (result) {
 					console.log("result: " + result);
 					alert(result);
 				}
 			});
 		});
 
-		$("#modifyBtn").on("click", function () {
+		$("#putBtn").on("click", function () {
 			var boardNo = $("#boardNo");
 			var title = $("#title");
 			var content = $("#content");
@@ -109,6 +109,37 @@
 				}
 			});
 		});
+
+		$("#patchBtn").on("click", function () {
+			var boardNo = $("#boardNo");
+			var title = $("#title");
+			var content = $("content");
+			var writer = $("writer");
+
+			var boardNoVal = boardNo.val();
+			var titleVal = title.val();
+			var contentVal = content.val();
+			var writerVal = writer.val();
+
+			var boardObject = {
+				boardNo: boardNoVal,
+				title: titleVal,
+				content: contentVal,
+				writer: writerVal
+			};
+
+			$.ajax({
+				type: "PATCH",
+				url: "/boards/" + boardNoVal,
+				data: JSON.stringify(boardObject),
+				contentType: "application/json; charset=UTF-8",
+				success: function (result) {
+					console.log("result: " + result);
+
+					alert(result);
+				}
+			});
+		});
 	});
 </script>
 
@@ -124,10 +155,11 @@
 
 	<div>
 		<button id="listBtn">LIST</button>
-		<button id="readBtn">READ</button>
-		<button id="registerBtn">REGISTER</button>
+		<button id="getBtn">READ</button>
+		<button id="postBtn">REGISTER</button>
 		<button id="deleteBtn">DELETE</button>
-		<button id="modifyBtn">MODIFY</button>
+		<button id="putBtn">MODIFY(put)</button>
+		<button id="patchBtn">MODIFY(patch)</button>
 	</div>
 
 </body>

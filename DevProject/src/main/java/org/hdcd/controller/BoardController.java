@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -91,7 +92,16 @@ public class BoardController {
 
 	@PutMapping("/{boardNo}")
 	public ResponseEntity<String> modify(@PathVariable("boardNo") int boardNo, @RequestBody Board board) {
-		log.info("modify");
+		log.info("modifyByPut");
+
+		ResponseEntity<String> entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+
+		return entity;
+	}
+
+	@PatchMapping("/{boardNo}")
+	public ResponseEntity<String> modifyByPatch(@PathVariable("boardNo") int boardNo, @RequestBody Board board) {
+		log.info("modifyByPatch");
 
 		ResponseEntity<String> entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 
