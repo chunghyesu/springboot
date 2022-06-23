@@ -11,6 +11,74 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 
+		$("#registerBtn").on("click", function () {
+			var userId01 = $("#userId");
+			var password01 = $("#password");
+			var userName = $("#userName");
+			var email = $("#email");
+
+			var userId01Val = userId01.val();
+			var password01Val = password01.val();
+			var userNameVal = userName.val();
+			var emailVal = email.val();
+
+			var genderVal = $('input[name="gender"]:checked').val();
+
+			console.log(genderVal);
+			console.log(userId01);
+
+			var userObject = {
+				userId: userId01Val,
+				password: password01Val,
+				userName: userNameVal,
+				email: emailVal,
+				gender: genderVal
+			};
+
+			$.ajax({
+				type: "POST",
+				url: "/users",
+				data: JSON.stringify(userObject),
+				contentType: "application/json; charset=UTF-8",
+				success: function (result) {
+					console.log("result: " + result);
+
+					alert(result);
+				},
+				error: function (xhr, status, error) {
+					alert("code:" + xhr.status + "\n"
+						+ "message:" + xhr.responseText + "\n" + "error:" + error);
+				}
+			});
+		});
+
+
+		$("#inputFile").on("change", function (event) {
+			console.log("change");
+
+			var files = event.target.files;
+
+			var file = files[0];
+
+			console.log(file);
+
+			var formData = new FormData();
+
+			formData.append("file", file);
+
+			$.ajax({
+				type: "POST",
+				url: "/upload",
+				data: formData,
+				dataType: 'text',
+				processData: false,
+				contentType: false,
+				success: function (data) {
+					alert(data);
+				}
+			});
+		});
+
 		$("#registerBtn01").on("click", function () {
 			var userId = $("#userId");
 			var password = $("#password");
@@ -165,12 +233,25 @@
 
 <body>
 	<h1>Register Form</h1>
+	<div>
+		<input type="file" id="inputFile">
+	</div>
 	<form>
 		userId:<input type="text" name="userId" value="hongkd" id="userId">
 		<br>
-		password:<input type="text" name="password" value="1234" id="password"><br>
+		password:<input type="text" name="password" value="1234" id="password">
+		<br>
+		이름:<input type="text" name="userName" value="정혜수" id="userName">
+		<br>
+		email:<input type="text" name="email" value="bobae15@naver.com" id="email">
+		<br>
+		성별:<input type="radio" name="gender" value="male" id="gender1" /><label for="gender1">Male</label><br>
+		<input type="radio" name="gender" value="female" id="gender2" /><label for="gender2">Female</label><br>
+		<input type="radio" name="gender" value="other" id="gender3" /><label for="gender3">Other</label><br>
+		<br>
 	</form>
 
+	<button id="registerBtn">register</button>
 	<button id="registerBtn01">registerBtn01</button>
 	<button id="registerBtn0101">registerBtn0101</button>
 	<button id="registerBtn02">registerBtn02</button>
