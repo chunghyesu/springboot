@@ -2,92 +2,42 @@ package org.hdcd.domain;
 
 import java.time.LocalDateTime;
 
-public class Board implements java.io.Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-	private static final long serialVersionUID = 1L;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-	private int boardNo;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+@Entity
+@Table(name = "board")
+public class Board {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "board_no")
+	private long boardNo;
+
+	@Column(name = "title")
 	private String title;
+
+	@Column(name = "content")
 	private String content;
+
+	@Column(name = "writer")
 	private String writer;
+
+	@Column(name = "reg_date")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime regDate;
 
-	public Board() {
-		super();
-	}
-
-	public Board(int boardNo, String title) {
-		super();
-		this.boardNo = boardNo;
-		this.title = title;
-	}
-
-	public int getBoardNo() {
-		return boardNo;
-	}
-
-	public void setBoardNo(int boardNo) {
-		this.boardNo = boardNo;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-
-	public LocalDateTime getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(LocalDateTime regDate) {
-		this.regDate = regDate;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + boardNo;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Board other = (Board) obj;
-		if (boardNo != other.boardNo)
-			return false;
-
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Board(boardNo=" + boardNo + "title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", regDate=" + regDate + ")";
-	}
 }

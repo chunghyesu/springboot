@@ -5,14 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+//@Slf4j
 @Controller
 public class HomeController {
 
-	@GetMapping("/registerForm")
+	@GetMapping("/ajaxHome")
 	public String registerForm() {
-		log.info("registerForm");
-		return "registerForm";
+		return "ajaxHome";
 	}
 
 //	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
